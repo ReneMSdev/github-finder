@@ -3,11 +3,14 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
+import { GithubProvider } from './context/github/GithubContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <GithubProvider>
+      <Router>
+        <App />
+      </Router>
+    </GithubProvider>
   </StrictMode>
 )
