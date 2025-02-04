@@ -1,22 +1,24 @@
 const githubReducer = (state, action) => {
-  const actions = {
-    GET_USERS: () => ({
-      ...state,
-      users: action.payload,
-      loading: false,
-    }),
-    CLEAR_USERS: () => ({
-      ...state,
-      users: [],
-    }),
-    SET_LOADING: () => ({
-      ...state,
-      loading: true,
-    }),
-    DEFAULT: () => state,
+  switch (action.type) {
+    case 'GET_USERS':
+      return {
+        ...state,
+        users: action.payload,
+        loading: false,
+      }
+    case CLEAR_USERS:
+      return {
+        ...state,
+        users: [],
+      }
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: true,
+      }
+    default:
+      return state
   }
-
-  return (actions[action.type] || actions.DEFAULT)()
 }
 
 export default githubReducer
