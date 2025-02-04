@@ -54,7 +54,7 @@ const User = () => {
               <div className="absolute inset-0 bg-slate-800/50"></div>
 
               {/* Overlay with text at the bottom */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-slate-100">
+              <div className="absolute bottom-0 left-0 right-0 p-4 text-slate-100">
                 <h2 className="text-xl font-bold">{login}</h2>
               </div>
             </div>
