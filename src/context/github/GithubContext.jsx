@@ -1,5 +1,4 @@
 import { createContext, useReducer } from 'react'
-import { githubUrl, githubToken } from '../../config/github.config'
 import githubReducer from './GithubReducer'
 
 const GithubContext = createContext()
@@ -14,65 +13,11 @@ export const GithubProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(githubReducer, initialState)
 
-  // Get single user
-  const getUser = async (login) => {
-    setLoading()
-
-    const response = await fetch(`${githubUrl}/users/${login}`, {
-      headers: {
-        Authorization: `token ${githubToken}`,
-      },
-    })
-
-    if (response.status === 404) {
-      window.location = '/notfound'
-    } else {
-      const data = await response.json()
-
-      dispatch({
-        type: 'GET_USER',
-        payload: data,
-      })
-    }
-  }
-
-  // Get user repos
-  const getUserRepos = async (login) => {
-    setLoading()
-
-    const params = new URLSearchParams({
-      sort: 'created',
-      per_page: 10,
-    })
-
-    const response = await fetch(`${githubUrl}/users/${login}/repos?${params}`, {
-      headers: {
-        Authorization: `token ${githubToken}`,
-      },
-    })
-
-    const data = await response.json()
-
-    dispatch({
-      type: 'GET_REPOS',
-      payload: data,
-    })
-  }
-
-  // Clear users from state
-  const clearUsers = () => dispatch({ type: 'CLEAR_USERS' })
-
-  // Set Loading
-  const setLoading = () => dispatch({ type: 'SET_LOADING' })
-
   return (
     <GithubContext.Provider
       value={{
         ...state,
         dispatch,
-        clearUsers,
-        getUser,
-        getUserRepos,
       }}
     >
       {children}
